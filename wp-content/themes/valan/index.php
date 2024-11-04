@@ -8,6 +8,69 @@
         <a href="#services" class="cta-button">Explore Our Services</a>
     </section>
 
+    <!-- About Us Section -->
+    <section id="about" class="about-section">
+        <h2>About Us</h2>
+        <p>Valan Group is committed to providing innovative solutions in land development and real estate. With a team of experienced professionals, we help clients achieve their goals and make informed investment decisions.</p>
+    </section>
+
+
+<section id="services" class="services-section">
+    <h2>Our Services</h2>
+    <div class="services-grid">
+        <?php
+        $services = new WP_Query(array('post_type' => 'services'));
+        if ($services->have_posts()) :
+            while ($services->have_posts()) : $services->the_post();
+                // Get custom fields data
+                $service_image = get_field('service_image'); 
+                $service_date = get_field('service_date'); 
+                ?>
+                <div class="service-item">
+                    <?php if ($service_image): ?>
+                        <img src="<?php echo esc_url($service_image['url']); ?>" alt="<?php echo esc_attr($service_image['alt']); ?>">
+                    <?php endif; ?>
+                    <h3><?php the_title(); ?></h3>
+                    <?php if ($service_date): ?>
+                        <p><strong>Date:</strong> <?php echo esc_html($service_date); ?></p>
+                    <?php endif; ?>
+                    <p><?php the_content(); ?></p>
+                </div>
+            <?php endwhile;
+            wp_reset_postdata();
+        endif;
+        ?>
+    </div>
+</section>
+
+<section id="products" class="products-section">
+    <h2>Our Products</h2>
+    <div class="products-grid">
+        <?php
+        $products = new WP_Query(array('post_type' => 'products'));
+        if ($products->have_posts()) :
+            while ($products->have_posts()) : $products->the_post();
+                // Get custom fields data
+                $product_image = get_field('product_image'); 
+                $product_date = get_field('product_launch_date'); 
+                ?>
+                <div class="product-item">
+                    <?php if ($product_image): ?>
+                        <img src="<?php echo esc_url($product_image['url']); ?>" alt="<?php echo esc_attr($product_image['alt']); ?>">
+                    <?php endif; ?>
+                    <h3><?php the_title(); ?></h3>
+                    <?php if ($product_date): ?>
+                        <p><strong>Launch Date:</strong> <?php echo esc_html($product_date); ?></p>
+                    <?php endif; ?>
+                    <p><?php the_content(); ?></p>
+                </div>
+            <?php endwhile;
+            wp_reset_postdata();
+        endif;
+        ?>
+    </div>
+</section>
+
 
 
     <!--Portfolio-->
